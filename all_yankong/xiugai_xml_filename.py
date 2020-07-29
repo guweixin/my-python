@@ -9,25 +9,25 @@ import os,shutil
 import urllib
 from PIL import Image, ImageDraw
 
-path="/mnt/sources2/data/0827_shenzhenbiaozhu/0/xm/"  
-files=os.listdir(path)
-s=[]  
+path = "/Users/fiona/Dataset/海天/收货单/收货单-标注_0723/test/Annotations/"
+files = os.listdir(path)
+s = []
 for xmlFile in files:
-    imgname=xmlFile.replace(".xml",".jpg")
+    imgname = xmlFile.replace(".xml", ".jpg")
     if not os.path.isdir(xmlFile): 
-        print xmlFile 
-        dom=xml.dom.minidom.parse(os.path.join(path,xmlFile))
-        root=dom.documentElement  
+        print(xmlFile)
+        dom = xml.dom.minidom.parse(os.path.join(path,xmlFile))
+        root = dom.documentElement
         #filename = root.getElementsByTagName("filename").childNodes[0].nodeValue
         #print (filename)
         
-        filename1=root.getElementsByTagName('filename')
-        n0=filename1[0]
-        print n0.firstChild.data
-        a=imgname
+        filename1 = root.getElementsByTagName('filename')
+        n0 = filename1[0]
+        print(n0.firstChild.data)
+        a = imgname
         #a='jby_jida_'+str(n0.firstChild.data)#urllib.urlopen(n0).read()
-        n0.firstChild.data=a
-        print n0.firstChild.data
+        n0.firstChild.data = a
+        print(n0.firstChild.data)
                 
         with open(os.path.join(path, xmlFile), 'w') as fh:
             dom.writexml(fh)
