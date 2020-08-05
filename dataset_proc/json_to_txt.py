@@ -37,6 +37,6 @@ def json_to_txt(IN_PATH, OUT_PATH):
 
 
 if __name__ == "__main__":
-    IN_PATH = "/Users/fiona/Dataset/pinlan-weiquan/价签/0622_trainset/json"
-    OUT_PATH = "/Users/fiona/Dataset/pinlan-weiquan/价签/0622_trainset/txt"
+    IN_PATH = "/Users/fiona/Dataset/Airliquide/air_rec/json"
+    OUT_PATH = "/Users/fiona/Dataset/Airliquide/air_rec/txt"
     json_to_txt(IN_PATH, OUT_PATH)

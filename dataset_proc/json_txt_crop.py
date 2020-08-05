@@ -53,30 +53,33 @@ def order_points(pts):
     return rect
 
 
-def crop_image(txt_path,image):
+def crop_image(txt_path, image):
     boxes = []
     f = open(txt_path)
     old_box = f.readlines()
     for i in old_box:
-        boxes.append(i.split(',')[:-1])
-    for j,box_temp in enumerate(boxes):
+        boxes.append(i.split(',')[:])
+    for j, box_temp in enumerate(boxes):
         box_temp = [int(i) for i in box_temp]
+        print(box_temp)
         cnt = [[box_temp[0], box_temp[1]], [box_temp[2], box_temp[3]], [box_temp[4], box_temp[5]],
                [box_temp[6], box_temp[7]]]
         cnt = np.array(cnt)  # 必须是array数组的形式
+        label = box_temp[8]
         print('cnt', cnt)
         rect = cv2.minAreaRect(cnt)  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
         box = cv2.boxPoints(rect)  # cv2.boxPoints(rect) for OpenCV 3.x 获取最小外接矩形的4个顶点
         box_temp = order_points(box)
         img_temp = four_point_transform(image, box_temp)
-        img_name = os.path.basename(txt_path).split('.')[0]+str(j)+'.jpg'
-        cv2.imwrite(os.path.join('/Users/cecilia/Desktop/crop', img_name), img_temp)
+        img_name = os.path.basename(txt_path).split('.')[0]+'_'+str(j)+'_'+str(label)+'.jpg'
+        cv2.imwrite(os.path.join('/Users/fiona/Dataset/Airliquide/air_rec/crop', img_name), img_temp)
 
 
-if __name__=='__main__':
-    img_list = glob.glob('/Users/cecilia/Desktop/label/*.jpg')
+if __name__ == '__main__':
+    img_list = glob.glob('/Users/fiona/Dataset/Airliquide/air_rec/img/*.JPG')
     for img in img_list:
         print(img)
         image = cv2.imread(img)
-        txt_path = img.replace('jpg', 'txt')
+        txt_path = img.replace('img', 'txt')
+        txt_path = txt_path.replace('JPG', 'txt')
         crop_image(txt_path, image)
